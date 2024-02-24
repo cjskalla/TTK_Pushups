@@ -62,6 +62,22 @@ st.dataframe(
 st.divider()
 
 
+# Define a dictionary with Tribal Members and their corresponding hex code colors
+tribal_member_colors = {
+    'Bino':             '#000000', # (Black)         
+    'Calvin':           '#ffffff', # (White)          
+    'Carter':           '#ff0000', # (Red)            
+    'Charlie':          '#00ff00', # (Green)          
+    'David':            '#0000ff', # (Blue)           
+    'Kade':             '#ffff00', # (Yellow)         
+    'Parker':           '#ff00ff', # (Magenta)        
+    'Petey':            '#00ffff', # (Cyan)           
+    'Ryan':             '#ff9900', # (Orange)         
+    'Tauke':            '#9900ff', # (Purple)         
+    'Von':              '#00cc00'  # (Dark Green)
+}
+
+
 cumm1["Cumulative Perc"] = cumm1["Cumulative Perc"] * 100
 
 # Create the line chart with Plotly Express
@@ -78,9 +94,15 @@ fig.update_layout(title='All Time %',
                   xaxis=dict(range=[0, 100], tickvals=[0, 25, 50, 75, 100], ticktext=['0%', '25%', '50%', '75%', '100%']),
                   legend_title_text='', 
                   legend_itemsizing='constant',
-                  legend_font_size=15,  # Set legend font size
-                  legend=dict(y=-.05, orientation='h') 
+                  legend_font_size=15,
+                  legend=dict(y=-.05, orientation='h')
 )
+
+
+# Update traces with custom colors
+for member, color in tribal_member_colors.items():
+    fig.update_traces(selector={'name': member}, line=dict(color=color))
+
 
 
 st.plotly_chart(fig, use_container_width=True)
