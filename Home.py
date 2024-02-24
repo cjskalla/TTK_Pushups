@@ -1,13 +1,22 @@
 import streamlit as st
 import pandas as pd
-import random
 from Helper import pivot_data as pv
 
 
-col = st.columns([1,2,1])
-
-with col[1]:
-    st.title("TTK Tribal Rankings")
+#Title
+title = st.markdown(
+        f"""
+        <h3 style="
+            text-align: center;
+            font-family: Forum;
+            font-weight: 100;
+            font-size: 300%;
+            ">
+            TTK Tribal Rankings
+        </h1>
+        """,
+        unsafe_allow_html=True
+    )
 
 agg1, cumm1 = pv.pivot("TTK_Pushups.xlsx")
 
