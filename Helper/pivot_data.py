@@ -51,13 +51,6 @@ def pivot(file):
     result_df = pd.merge(grouped_df, month_pivot_table, on='Tribal Member', how='left')
     visual_df = pd.merge(result_df, week_pivot_table, on='Tribal Member', how='left')
 
-    # Function to convert columns to percentage with 0 decimal places
-    def convert_to_percent(x):
-        return "{:.0%}".format(x)
-
-    visual_df.iloc[:, 1:] = visual_df.iloc[:, 1:].applymap(convert_to_percent)
-    cumulative_pivot_table.iloc[:, 1:] = cumulative_pivot_table.iloc[:, 1:].applymap(convert_to_percent)
-
     cumulative_pivot_table = pd.melt(cumulative_pivot_table, id_vars=['Tribal Member'], var_name='Day', value_name='Cumulative Perc')
 
     return visual_df, cumulative_pivot_table
