@@ -31,18 +31,20 @@ merged_df = pd.merge(agg1, pivot_cumm1, on='Tribal Member', how='left')
 # Create Cumulative Score column with reordered values
 merged_df['Cumulative Score'] = merged_df.apply(lambda row: row[pivot_cumm1.columns[1:]].dropna().tolist(), axis=1)
 merged_df.drop(columns=pivot_cumm1.columns[1:], inplace=True)
-
-
 merged_df["Pushups"] = merged_df["Pushups"] * 100
+merged_df_sorted = merged_df.sort_values(by="Pushups", ascending=False)
+
+
 
 st.dataframe(
-    merged_df.loc[:, ["Tribal Member", "Pushups", "Cumulative Score"]],
+    merged_df_sorted.loc[:, ["Tribal Member", "Pushups", "Cumulative Score"]],
     column_config={
         "Tribal Member": "Tribal Member",
         "Pushups": st.column_config.ProgressColumn(
             "%",
             help="All Time Pushup Consistency %",
             format="%d %%",
+            width='small',
             min_value=0,
             max_value=100
         ),
@@ -56,9 +58,12 @@ st.dataframe(
 )
 
 
-st.divider()
+#st.divider()
+# Assuming cumm1 is your DataFrame
+# Reversing the order of rows
+cumm1_sorted = cumm1.iloc[::-1].reset_index(drop=True)
 
-merged_df
-cumm1
-
-# st.line_chart(cumm1)
+st.line_chart(cumm1_sorted,
+              x='Cumulative Perc',
+              y='Day',
+              color='Tribal Member')
