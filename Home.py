@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 from Helper import pivot_data as pv
 
 
@@ -58,12 +59,28 @@ st.dataframe(
 )
 
 
-#st.divider()
-# Assuming cumm1 is your DataFrame
-# Reversing the order of rows
-cumm1_sorted = cumm1.iloc[::-1].reset_index(drop=True)
+st.divider()
 
-st.line_chart(cumm1_sorted,
-              x='Cumulative Perc',
-              y='Day',
-              color='Tribal Member')
+
+cumm1["Cumulative Perc"] = cumm1["Cumulative Perc"] * 100
+
+# Create the line chart with Plotly Express
+fig = px.line(cumm1, x='Cumulative Perc', y='Day', color='Tribal Member', line_group='Tribal Member',
+              labels={'Cumulative Perc': 'Cumulative Perc', 'Day': 'Day'})
+
+# Customize the layout including the height
+fig.update_layout(title='All Time %',
+                  title_x=0.4,  # Center the title
+                  xaxis_title='',
+                  yaxis_title='',
+                  height=800,
+                  width=350,
+                  xaxis=dict(range=[0, 100], tickvals=[0, 25, 50, 75, 100], ticktext=['0%', '25%', '50%', '75%', '100%']),
+                  legend_title_text='', 
+                  legend_itemsizing='constant',
+                  legend_font_size=15,  # Set legend font size
+                  legend=dict(y=-.05, orientation='h') 
+)
+
+
+st.plotly_chart(fig, use_container_width=True)
