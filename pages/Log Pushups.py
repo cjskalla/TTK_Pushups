@@ -17,6 +17,8 @@ current_date_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%
 
 input_file = pd.read_excel("inputs.xlsx")
 
+input_file.drop_duplicates()
+
 tribal_members = [
                     "Bino",
                     "Calvin",

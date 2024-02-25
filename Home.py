@@ -53,7 +53,7 @@ title = st.markdown(
 
 agg1, cumm1 = pv.pivot()
 
-cumm1 = cumm1.drop_duplicates()
+cumm1.drop_duplicates()
 
 # Pivot the DataFrame
 pivot_cumm1 = cumm1.pivot(index='Tribal Member', columns='Day', values='Cumulative Perc')
