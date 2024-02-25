@@ -114,8 +114,8 @@ cumm1["Cumulative Perc"] = cumm1["Cumulative Perc"] * 100
 cumm1['Jittered Perc'] = cumm1['Cumulative Perc'] + np.random.normal(0, 5, len(cumm1))
 
 # Create the line chart with Plotly Express
-fig = px.line(cumm1, x='Jittered Perc', y='Day', color='Tribal Member', line_group='Tribal Member',
-              labels={'Jittered Perc': 'Cumulative Perc', 'Day': 'Day'})
+fig = px.line(cumm1, x='Cumulative Perc', y='Day', color='Tribal Member', line_group='Tribal Member',
+              labels={'Cumulative Perc': 'Cumulative Perc', 'Day': 'Day'})
 
 
 # Customize the layout including the height
