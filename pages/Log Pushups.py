@@ -152,7 +152,7 @@ if st.session_state['data_editor']:
         st.session_state['commit_change'] = False        
         st.session_state['data_editor'] = False
 
-        st.experimental_rerun()
+        st.rerun()
         
 
 
