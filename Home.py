@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from Helper import pivot_data as pv
-
+import numpy as np
 
 #Title
 title = st.markdown(
@@ -19,7 +19,7 @@ title = st.markdown(
         unsafe_allow_html=True
     )
 
-agg1, cumm1 = pv.pivot("TTK_Pushups.xlsx")
+agg1, cumm1 = pv.pivot()
 
 
 # Pivot the DataFrame
@@ -50,7 +50,7 @@ st.dataframe(
             max_value=100
         ),
         "Cumulative Score": st.column_config.LineChartColumn(
-            "History", y_min=0, y_max=1
+            "Trend", y_min=0, y_max=1
         )
     },
     height=425,
@@ -59,12 +59,9 @@ st.dataframe(
 )
 
 
-st.divider()
-
-
 # Define a dictionary with Tribal Members and their corresponding hex code colors
 tribal_member_colors = {
-    'Bino':             '#000000', # (Black)         
+    'Bino':             '#B03060', # (Redish)         
     'Calvin':           '#ffffff', # (White)          
     'Carter':           '#ff0000', # (Red)            
     'Charlie':          '#00ff00', # (Green)          
@@ -80,22 +77,27 @@ tribal_member_colors = {
 
 cumm1["Cumulative Perc"] = cumm1["Cumulative Perc"] * 100
 
+# Add jitter to the x-axis values
+cumm1['Jittered Perc'] = cumm1['Cumulative Perc'] + np.random.normal(0, 5, len(cumm1))
+
 # Create the line chart with Plotly Express
-fig = px.line(cumm1, x='Cumulative Perc', y='Day', color='Tribal Member', line_group='Tribal Member',
-              labels={'Cumulative Perc': 'Cumulative Perc', 'Day': 'Day'})
+fig = px.line(cumm1, x='Jittered Perc', y='Day', color='Tribal Member', line_group='Tribal Member',
+              labels={'Jittered Perc': 'Cumulative Perc', 'Day': 'Day'})
+
 
 # Customize the layout including the height
 fig.update_layout(title='All Time %',
                   title_x=0.4,  # Center the title
+                  title_y=0.92,
                   xaxis_title='',
                   yaxis_title='',
-                  height=800,
+                  height=600,
                   width=350,
-                  xaxis=dict(range=[0, 100], tickvals=[0, 25, 50, 75, 100], ticktext=['0%', '25%', '50%', '75%', '100%']),
+                  xaxis=dict(range=[-15, 115], tickvals=[0, 25, 50, 75, 100], ticktext=['0%', '25%', '50%', '75%', '100%']),
                   legend_title_text='', 
                   legend_itemsizing='constant',
                   legend_font_size=15,
-                  legend=dict(y=-.05, orientation='h')
+                  legend=dict(y=-.07, orientation='h')
 )
 
 

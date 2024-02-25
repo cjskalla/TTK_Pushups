@@ -1,10 +1,21 @@
 import pandas as pd
 
-def pivot(file):
-    df = pd.read_excel(file)
+# Iterate over rows and print each row
+for index, row in inputs.iterrows():
+    print(row)
+
+def pivot():
+
+
+    inputs = pd.read_excel("inputs.xlsx")
+    inputs = inputs.drop_duplicates(subset=['Tribal Member', 'Day'])
+    inputs.reset_index(drop=True, inplace=True) 
+    inputs_pivot = inputs.pivot(index='Tribal Member', columns='Day', values='Pushups').fillna(0)
+    inputs_pivot.reset_index(inplace=True)
 
     # Melt the DataFrame to convert days into rows
-    df = pd.melt(df, id_vars=['Tribal Member'], var_name='Day', value_name='Pushups')
+    df = pd.melt(inputs_pivot, id_vars=['Tribal Member'], var_name='Day', value_name='Pushups')
+
 
     # Convert 'Day' to datetime type with a specific format
     df['Day'] = pd.to_datetime(df['Day'])
@@ -15,7 +26,6 @@ def pivot(file):
     def avg_pushup_perc(x):
         return x.sum() / x.count() if x.count() > 0 else 0
 
-    # 
     grouped_df = df.groupby('Tribal Member').agg({'Pushups': avg_pushup_perc})
     grouped_df = grouped_df.reset_index()
     grouped_df['Tribal Member'] = grouped_df['Tribal Member'].astype('object')
@@ -64,5 +74,3 @@ def pivot(file):
 
     # # Save the Excel file
     # excel_writer.save()
-
-agg1, cumm1 = pivot("TTK_Pushups.xlsx")
