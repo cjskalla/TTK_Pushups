@@ -17,8 +17,8 @@ cst_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).replace(hour=0, minu
 current_date_time = cst_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-input_file = pd.read_excel("inputs.xlsx")
-input_file.drop_duplicates(subset=["Tribal Member", "Day"])
+input_df = pd.read_excel("inputs.xlsx")
+input_file = input_df.drop_duplicates(subset=["Tribal Member", "Day"])
 
 
 tribal_members = [
