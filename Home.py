@@ -4,6 +4,22 @@ import plotly.express as px
 from Helper import pivot_data as pv
 import numpy as np
 
+#Title
+title = st.markdown(
+        f"""
+        <h3 style="
+            text-align: center;
+            font-family: Forum;
+            font-weight: 100;
+            font-size: 300%;
+            ">
+            TESTING
+        </h1>
+        """,
+        unsafe_allow_html=True
+    )
+
+
 inputs = pd.read_excel("inputs.xlsx")
 
 @st.cache

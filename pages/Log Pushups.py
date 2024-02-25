@@ -13,7 +13,7 @@ utc_now = datetime.utcnow()
 current_date = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%m/%d/%Y")
 
 # Convert the UTC time to CST
-current_date_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst)
+current_date_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%Y-%m-%d %H:%M:%S")
 
 input_file = pd.read_excel("inputs.xlsx")
 
