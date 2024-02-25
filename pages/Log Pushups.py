@@ -12,12 +12,14 @@ utc_now = datetime.utcnow()
 # Convert the UTC time to CST
 current_date = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%m/%d/%Y")
 
-# Convert the UTC time to CST
-current_date_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%Y-%m-%d %H:%M:%S")
+# Convert UTC to CST and set hours, minutes, seconds to 0
+cst_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).replace(hour=0, minute=0, second=0, microsecond=0)
+current_date_time = cst_time.strftime("%Y-%m-%d %H:%M:%S")
+
 
 input_file = pd.read_excel("inputs.xlsx")
+input_file.drop_duplicates(subset=["Tribal Member", "Day"])
 
-input_file.drop_duplicates()
 
 tribal_members = [
                     "Bino",
