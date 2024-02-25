@@ -7,7 +7,8 @@ import pandas as pd
 def pivot():
 
 
-    inputs = pd.read_excel("inputs.xlsx")
+    df_inputs = pd.read_excel("inputs.xlsx")
+    inputs = df_inputs.drop_duplicates(subset=["Tribal Member", "Day"])
     inputs.reset_index(drop=True, inplace=True) 
     inputs_pivot = inputs.pivot(index='Tribal Member', columns='Day', values='Pushups').fillna(0)
     inputs_pivot.reset_index(inplace=True)
