@@ -1,6 +1,16 @@
 import streamlit as st
 import pandas as pd
-from datetime import date
+from datetime import datetime
+import pytz
+
+# Set the time zone to Central Standard Time (CST)
+cst = pytz.timezone('America/Chicago')
+
+# Get the current time in UTC
+utc_now = datetime.utcnow()
+
+# Convert the UTC time to CST
+current_date = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%m/%d/%Y")
 
 input_file = pd.read_excel("inputs.xlsx")
 
@@ -18,8 +28,6 @@ tribal_members = [
                     "Von"
                     ]
 
-# Get the current date
-current_date = date.today().strftime("%#m/%d/%Y")
 
 #Title
 title = st.markdown(
@@ -65,10 +73,6 @@ if tribal_member:
         input_file.to_excel("inputs.xlsx", index=False)
 
         st.write(f"You logged pushups for {tribal_member} for {current_date}")
-
-
-
-
 
 
 
