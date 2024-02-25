@@ -17,7 +17,7 @@ st.download_button(
     label="Download data as CSV",
     data=csv,
     file_name='large_df.csv',
-    mime='text/csv'
+    mime='text/csv',
 )
 
 #Title
@@ -35,6 +35,7 @@ title = st.markdown(
         unsafe_allow_html=True
     )
 
+agg1, cumm1 = pv.pivot()
 
 # Pivot the DataFrame
 pivot_cumm1 = cumm1.pivot(index='Tribal Member', columns='Day', values='Cumulative Perc')
