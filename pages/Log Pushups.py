@@ -12,6 +12,9 @@ utc_now = datetime.utcnow()
 # Convert the UTC time to CST
 current_date = utc_now.replace(tzinfo=pytz.utc).astimezone(cst).strftime("%m/%d/%Y")
 
+# Convert the UTC time to CST
+current_date_time = utc_now.replace(tzinfo=pytz.utc).astimezone(cst)
+
 input_file = pd.read_excel("inputs.xlsx")
 
 tribal_members = [
@@ -63,7 +66,7 @@ if tribal_member:
     
         submission = pd.DataFrame({
             'Tribal Member': [tribal_member],
-            'Day' : current_date,
+            'Day' : current_date_time,
             'Pushups': 1
             }
         )
