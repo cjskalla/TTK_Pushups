@@ -4,6 +4,22 @@ import plotly.express as px
 from Helper import pivot_data as pv
 import numpy as np
 
+inputs = pd.read_excel("inputs.xlsx")
+
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
+csv = convert_df(inputs)
+
+st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv'
+)
+
 #Title
 title = st.markdown(
         f"""
@@ -18,8 +34,6 @@ title = st.markdown(
         """,
         unsafe_allow_html=True
     )
-
-agg1, cumm1 = pv.pivot()
 
 
 # Pivot the DataFrame
