@@ -1,8 +1,8 @@
 import pandas as pd
 
-# Iterate over rows and print each row
-for index, row in inputs.iterrows():
-    print(row)
+# # Iterate over rows and print each row
+# for index, row in inputs.iterrows():
+#     print(row)
 
 def pivot():
 
